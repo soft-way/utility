@@ -1,2 +1,3 @@
 # utility
-Tools
+# Elliptic Curve tool
+elliptic_curve
