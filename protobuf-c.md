@@ -1,6 +1,7 @@
-# protobuf for c language
+# Protobuf for c language
 
-## procedure
+## Procedure
+Install protobuf-c on CentOS7/RHEL7
 Refer to [github prorobuf-c](https://github.com/protobuf-c/protobuf-c)
 ```markdown
 Firstly, install protobuf
