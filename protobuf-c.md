@@ -29,7 +29,6 @@ $ make install
 ### Test protobuf-c
 $ protoc --c_out=. t/test-proto3.proto
 
-
 ## Procedure rpm build (CentOS 7)
 ### Build protobuf
 ```markdown
@@ -40,9 +39,10 @@ $ wget -O googletest-1.7.0.tar.gz https://github.com/google/googletest/archive/r
 if not, install required package
 # yum -y install emacs emacs-el gcc-c++
 
-Get file from http://pkgs.fedoraproject.org/cgit/rpms/protobuf.git/tree/protobuf.spec, save as protobuf-3.5.1.spe
-Change version "Version:        3.5.1"
-# rpmbuild -bb protobuf-3.5.1.spec --without python --without java
+$ wget -O protobuf-3.5.1.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-3.5.1.spec
+$ get -O ~/rpmbuild/SOURCES/ftdetect-proto.vim https://raw.githubusercontent.com/soft-way/utility/master/rpm/ftdetect-proto.vim
+$ get -O ~/rpmbuild/SOURCES/protobuf-init.el https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-init.el
+$ rpmbuild -bb protobuf-3.5.1.spec --without python --without java
 
 ```
 ### Build protobuf-c
@@ -53,8 +53,12 @@ $ git clone -b v1.3.0 https://github.com/protobuf-c/protobuf-c.git .
 $ cd ~/setup/
 $ tar -cf ~/rpmbuild/SOURCES/protobuf-c-1.3.0.tar protobuf-c-1.3.0
 $ gzip ~/rpmbuild/SOURCES/protobuf-c-1.3.0.tar
-Spec file from https://git.centos.org/blob/rpms!protobuf-c/2fc1410c518e434255b4c0188f9bf065b9dbd399/SPECS!protobuf-c.spec;jsessionid=z1fnk6k79f8ntb5m84zxktnv
+$ wget -O protobuf-c-1.3.0.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-c-1.3.0.spec
 $ rpmbuild -bb protobuf-c-1.3.0.spec
 
 ```
 
+## RPM installation
+```markdown
+# yum localinstall protobuf-*.rpm
+```
