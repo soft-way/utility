@@ -1,7 +1,7 @@
 # Protobuf for c language
 
-## Procedure
-Install protobuf-c on CentOS7/RHEL7
+## Procedure compile and install (CentOS 7)
+### Install protobuf on CentOS7/RHEL7
 Refer to [github prorobuf-c](https://github.com/protobuf-c/protobuf-c)
 ```markdown
 Firstly, install protobuf
@@ -12,7 +12,10 @@ $ ./autogen.sh
 $ ./configure
 $ make -j4
 $ make install
+```
 
+### Install protobuf-c on CentOS7/RHEL7
+```markdown
 $ mkdir -p ~/setup/protobuf-c-1.3.0
 $ cd ~/setup/protobuf-c-1.3.0
 $ git clone -b v1.3.0 https://github.com/protobuf-c/protobuf-c.git .
@@ -22,7 +25,36 @@ $ export protobuf_CFLAGS="-I/usr/local/include -pthread"
 $ ./configure
 $ make -j4
 $ make install
-
-Test protobuf-c
-$ protoc --c_out=. t/test-proto3.proto
 ```
+### Test protobuf-c
+$ protoc --c_out=. t/test-proto3.proto
+
+
+## Procedure rpm build (CentOS 7)
+### Build protobuf
+```markdown
+$ cd ~/rpmbuild/SOURCES
+$ wget -O protobuf-3.5.1.tar.gz https://github.com/google/protobuf/releases/download/v3.5.1/protobuf-all-3.5.1.tar.gz
+$ wget -O googlemock-1.7.0.tar.gz https://github.com/google/googlemock/archive/release-1.7.0.tar.gz#/googlemock-1.7.0.tar.gz
+$ wget -O googletest-1.7.0.tar.gz https://github.com/google/googletest/archive/release-1.7.0.tar.gz#/googletest-1.7.0.tar.gz
+if not, install required package
+# yum -y install emacs emacs-el gcc-c++
+
+Get file from http://pkgs.fedoraproject.org/cgit/rpms/protobuf.git/tree/protobuf.spec, save as protobuf-3.5.1.spe
+Change version "Version:        3.5.1"
+# rpmbuild -bb protobuf-3.5.1.spec --without python --without java
+
+```
+### Build protobuf-c
+```markdown
+$ mkdir -p ~/setup/protobuf-c-1.3.0
+$ cd ~/setup/protobuf-c-1.3.0
+$ git clone -b v1.3.0 https://github.com/protobuf-c/protobuf-c.git .
+$ cd ~/setup/
+$ tar -cf ~/rpmbuild/SOURCES/protobuf-c-1.3.0.tar protobuf-c-1.3.0
+$ gzip ~/rpmbuild/SOURCES/protobuf-c-1.3.0.tar
+Spec file from https://git.centos.org/blob/rpms!protobuf-c/2fc1410c518e434255b4c0188f9bf065b9dbd399/SPECS!protobuf-c.spec;jsessionid=z1fnk6k79f8ntb5m84zxktnv
+$ rpmbuild -bb protobuf-c-1.3.0.spec
+
+```
+
