@@ -60,5 +60,5 @@ $ rpmbuild -bb protobuf-c-1.3.0.spec
 
 ## RPM installation
 ```markdown
-# yum localinstall protobuf-*.rpm
+# yum localinstall protobuf-\*.rpm
 ```
