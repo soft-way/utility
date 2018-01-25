@@ -9,7 +9,10 @@ $ mkdir -p ~/setup/protobuf-3.4.1
 $ cd ~/setup/protobuf-3.4.1
 $ git clone -b v3.4.1 https://github.com/google/protobuf.git .
 $ ./autogen.sh
-$ ./configure
+$ ./configure --prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --libexecdir=/usr/libexec \
+    --sysconfdir=/etc --datadir=/usr/share --includedir=/usr/include --libdir=/usr/lib64 
+    --localstatedir=/var --sharedstatedir=/var/lib --mandir=/usr/share/man --infodir=/usr/share/info
+
 $ make -j4
 $ make install
 ```
@@ -22,7 +25,10 @@ $ git clone -b v1.3.0 https://github.com/protobuf-c/protobuf-c.git .
 $ ./autogen.sh
 $ export protobuf_LIBS="-L/usr/local/lib -lprotobuf -pthread -lpthread"
 $ export protobuf_CFLAGS="-I/usr/local/include -pthread"
-$ ./configure
+$ ./configure --prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --libexecdir=/usr/libexec \
+    --sysconfdir=/etc --datadir=/usr/share --includedir=/usr/include --libdir=/usr/lib64 
+    --localstatedir=/var --sharedstatedir=/var/lib --mandir=/usr/share/man --infodir=/usr/share/info
+
 $ make -j4
 $ make install
 ```
