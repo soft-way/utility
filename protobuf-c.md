@@ -44,8 +44,8 @@ if not, install required package
 # yum -y install emacs emacs-el gcc-c++
 
 $ wget -O protobuf-3.5.1.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-3.5.1.spec
-$ get -O ~/rpmbuild/SOURCES/ftdetect-proto.vim https://raw.githubusercontent.com/soft-way/utility/master/rpm/ftdetect-proto.vim
-$ get -O ~/rpmbuild/SOURCES/protobuf-init.el https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-init.el
+$ wget -O ~/rpmbuild/SOURCES/ftdetect-proto.vim https://raw.githubusercontent.com/soft-way/utility/master/rpm/ftdetect-proto.vim
+$ wget -O ~/rpmbuild/SOURCES/protobuf-init.el https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-init.el
 $ rpmbuild -bb protobuf-3.5.1.spec --without python --without java
 
 ```
