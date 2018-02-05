@@ -62,6 +62,34 @@ $ rpmbuild -bb protobuf-c-1.3.0.spec
 
 ```
 
+## Procedure rpm build (SLES12)
+### Build protobuf
+```markdown
+$ cd $RPM_BUILD/SOURCES
+$ wget -O protobuf-3.4.1.tar.gz https://github.com/google/protobuf/releases/download/v3.4.1/protobuf-cpp-3.4.1.tar.gz
+$ wget -O googlemock-1.7.0.tar.gz https://github.com/google/googlemock/archive/release-1.7.0.tar.gz#/googlemock-1.7.0.tar.gz
+$ wget -O googletest-1.7.0.tar.gz https://github.com/google/googletest/archive/release-1.7.0.tar.gz#/googletest-1.7.0.tar.gz
+$ wget -O ftdetect-proto.vim https://raw.githubusercontent.com/soft-way/utility/master/rpm/ftdetect-proto.vim
+$ wget -O protobuf-init.el https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-init.el
+if not, install required package
+# zypper install emacs emacs-el gcc-c++
+
+$ wget -O protobuf-3.4.1.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-3.4.1.spec.SLES12
+$ rpmbuild -bb protobuf-3.4.1.spec --without python --without java
+
+```
+### Build protobuf-c
+```markdown
+$ cd $RPM_BUILD/SOURCES
+$ wget -O protobuf-c-1.3.0.zip https://github.com/protobuf-c/protobuf-c/archive/v1.3.0.zip
+$ unzip protobuf-c-1.3.0.zip
+$ tar -cf protobuf-c-1.3.0.tar protobuf-c-1.3.0
+$ gzip protobuf-c-1.3.0.tar
+$ wget -O protobuf-c-1.3.0.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-c-1.3.0.spec.SLES12
+$ rpmbuild -bb protobuf-c-1.3.0.spec
+
+```
+
 ## RPM installation
 ```markdown
 # yum localinstall protobuf-*.rpm
