@@ -327,13 +327,13 @@ install -p -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{emacs_startdir}
 %postun compiler -p /sbin/ldconfig
 
 %files
-%{_libdir}/libprotobuf.so.15*
+%{_libdir}/libprotobuf.so.14*
 %doc CHANGES.txt CONTRIBUTORS.txt README.md
 %license LICENSE
 
 %files compiler
 %{_bindir}/protoc
-%{_libdir}/libprotoc.so.15*
+%{_libdir}/libprotoc.so.14*
 %doc README.md
 %license LICENSE
 
@@ -343,14 +343,14 @@ install -p -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{emacs_startdir}
 %{_libdir}/libprotobuf.so
 %{_libdir}/libprotoc.so
 %{_libdir}/pkgconfig/protobuf.pc
-%doc examples/add_person.cc examples/addressbook.proto examples/list_people.cc examples/Makefile examples/README.md
+%doc examples/add_person.cc examples/addressbook.proto examples/list_people.cc examples/Makefile
 
 %files static
 %{_libdir}/libprotobuf.a
 %{_libdir}/libprotoc.a
 
 %files lite
-%{_libdir}/libprotobuf-lite.so.15*
+%{_libdir}/libprotobuf-lite.so.14*
 
 %files lite-devel
 %{_libdir}/libprotobuf-lite.so
