@@ -1,6 +1,6 @@
 # Compile GMssl RPM for opencryptoki
 
-## Procedure for CentO/RHEL7(x86_64), SUSE (s390x)
+## Procedure for CentO/RHEL7(x86_64), SUSE12 (s390x)
 ```markdown
 $ mkdir -p $RPM_BUILD/SOURCES/gmssl-1.1.0e
 $ cd $RPM_BUILD/SOURCES/gmssl-1.1.0e
