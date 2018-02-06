@@ -36,16 +36,17 @@ $ protoc --c_out=. t/test-proto3.proto
 ## Procedure rpm build (CentOS 7)
 ### Build protobuf
 ```markdown
-$ cd ~/rpmbuild/SOURCES
+$ cd $RPM_BUILD/SOURCES
 $ wget -O protobuf-3.5.1.tar.gz https://github.com/google/protobuf/releases/download/v3.5.1/protobuf-all-3.5.1.tar.gz
 $ wget -O googlemock-1.7.0.tar.gz https://github.com/google/googlemock/archive/release-1.7.0.tar.gz#/googlemock-1.7.0.tar.gz
 $ wget -O googletest-1.7.0.tar.gz https://github.com/google/googletest/archive/release-1.7.0.tar.gz#/googletest-1.7.0.tar.gz
+$ wget -O ftdetect-proto.vim https://raw.githubusercontent.com/soft-way/utility/master/rpm/ftdetect-proto.vim
+$ wget -O protobuf-init.el https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-init.el
 if not, install required package
 # yum -y install emacs emacs-el gcc-c++
 
+$ cd $RPM_BUILD/SPECS/
 $ wget -O protobuf-3.5.1.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-3.5.1.spec
-$ wget -O ~/rpmbuild/SOURCES/ftdetect-proto.vim https://raw.githubusercontent.com/soft-way/utility/master/rpm/ftdetect-proto.vim
-$ wget -O ~/rpmbuild/SOURCES/protobuf-init.el https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-init.el
 $ rpmbuild -bb protobuf-3.5.1.spec --without python --without java
 
 ```
@@ -55,8 +56,9 @@ $ mkdir -p ~/setup/protobuf-c-1.3.0
 $ cd ~/setup/protobuf-c-1.3.0
 $ git clone -b v1.3.0 https://github.com/protobuf-c/protobuf-c.git .
 $ cd ~/setup/
-$ tar -cf ~/rpmbuild/SOURCES/protobuf-c-1.3.0.tar protobuf-c-1.3.0
-$ gzip ~/rpmbuild/SOURCES/protobuf-c-1.3.0.tar
+$ tar -cf $RPM_BUILD/SOURCES/protobuf-c-1.3.0.tar protobuf-c-1.3.0
+$ gzip $RPM_BUILD/SOURCES/protobuf-c-1.3.0.tar
+$ cd $RPM_BUILD/SPECS/
 $ wget -O protobuf-c-1.3.0.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-c-1.3.0.spec
 $ rpmbuild -bb protobuf-c-1.3.0.spec
 
@@ -74,6 +76,7 @@ $ wget -O protobuf-init.el https://raw.githubusercontent.com/soft-way/utility/ma
 if not, install required package
 # zypper install emacs emacs-el gcc-c++
 
+$ cd $RPM_BUILD/SPECS/
 $ wget -O protobuf-3.4.1.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-3.4.1.spec.SLES12
 $ rpmbuild -bb protobuf-3.4.1.spec --without python --without java
 
@@ -85,6 +88,7 @@ $ wget -O protobuf-c-1.3.0.zip https://github.com/protobuf-c/protobuf-c/archive/
 $ unzip protobuf-c-1.3.0.zip
 $ tar -cf protobuf-c-1.3.0.tar protobuf-c-1.3.0
 $ gzip protobuf-c-1.3.0.tar
+$ cd $RPM_BUILD/SPECS/
 $ wget -O protobuf-c-1.3.0.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-c-1.3.0.spec.SLES12
 $ rpmbuild -bb protobuf-c-1.3.0.spec
 
