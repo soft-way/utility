@@ -16,6 +16,7 @@ $ make install
 
 ```
 ## RPM build on CentOS7
+```markdown
 $ mkdir -p ~/setup/opencryptoki-3.8.2
 $ cd ~/setup/opencryptoki-3.8.2
 $ git clone -b v3.8.2 https://github.com/opencryptoki/opencryptoki.git .
@@ -23,3 +24,4 @@ $ cd ..
 $ tar -cf ~/rpmbuild/SOURCES/opencryptoki-3.8.2.tar opencryptoki-3.8.2
 $ gzip ~/rpmbuild/SOURCES/opencryptoki-3.8.2.tar
 $ rpmbuild -bb opencryptoki-3.8.2/rpm/opencryptoki.spec --define "dist .el7"
+```
