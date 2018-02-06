@@ -52,12 +52,11 @@ $ rpmbuild -bb protobuf-3.5.1.spec --without python --without java
 ```
 ### Build protobuf-c
 ```markdown
-$ mkdir -p ~/setup/protobuf-c-1.3.0
-$ cd ~/setup/protobuf-c-1.3.0
-$ git clone -b v1.3.0 https://github.com/protobuf-c/protobuf-c.git .
-$ cd ~/setup/
-$ tar -cf $RPM_BUILD/SOURCES/protobuf-c-1.3.0.tar protobuf-c-1.3.0
-$ gzip $RPM_BUILD/SOURCES/protobuf-c-1.3.0.tar
+$ cd $RPM_BUILD/SOURCES
+$ wget -O protobuf-c-1.3.0.zip https://github.com/protobuf-c/protobuf-c/archive/v1.3.0.zip
+$ unzip protobuf-c-1.3.0.zip
+$ tar -cf protobuf-c-1.3.0.tar protobuf-c-1.3.0
+$ gzip protobuf-c-1.3.0.tar
 $ cd $RPM_BUILD/SPECS/
 $ wget -O protobuf-c-1.3.0.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-c-1.3.0.spec
 $ rpmbuild -bb protobuf-c-1.3.0.spec
@@ -68,7 +67,8 @@ $ rpmbuild -bb protobuf-c-1.3.0.spec
 ### Build protobuf
 ```markdown
 $ cd $RPM_BUILD/SOURCES
-$ wget -O protobuf-3.4.1.tar.gz https://github.com/google/protobuf/releases/download/v3.4.1/protobuf-cpp-3.4.1.tar.gz
+# for fix issue https://github.com/google/protobuf/issues/3937, download below fixed source code
+$ wget -O protobuf-3.5.1.tar.gz https://dl.bintray.com/softway/generic/p/protobuf-3.5.1.tar.gz
 $ wget -O googlemock-1.7.0.tar.gz https://github.com/google/googlemock/archive/release-1.7.0.tar.gz#/googlemock-1.7.0.tar.gz
 $ wget -O googletest-1.7.0.tar.gz https://github.com/google/googletest/archive/release-1.7.0.tar.gz#/googletest-1.7.0.tar.gz
 $ wget -O ftdetect-proto.vim https://raw.githubusercontent.com/soft-way/utility/master/rpm/ftdetect-proto.vim
@@ -77,8 +77,8 @@ if not, install required package
 # zypper install emacs emacs-el gcc-c++
 
 $ cd $RPM_BUILD/SPECS/
-$ wget -O protobuf-3.4.1.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-3.4.1.spec.SLES12
-$ rpmbuild -bb protobuf-3.4.1.spec --without python --without java
+$ wget -O protobuf-3.5.1.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-3.5.1.spec
+$ rpmbuild -bb protobuf-3.5.1.spec --without python --without java
 
 ```
 ### Build protobuf-c
@@ -89,10 +89,15 @@ $ unzip protobuf-c-1.3.0.zip
 $ tar -cf protobuf-c-1.3.0.tar protobuf-c-1.3.0
 $ gzip protobuf-c-1.3.0.tar
 $ cd $RPM_BUILD/SPECS/
-$ wget -O protobuf-c-1.3.0.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-c-1.3.0.spec.SLES12
+$ wget -O protobuf-c-1.3.0.spec https://raw.githubusercontent.com/soft-way/utility/master/rpm/protobuf-c-1.3.0.spec
 $ rpmbuild -bb protobuf-c-1.3.0.spec
 
 ```
+## RPM on bintray
+### rpm can be downloaded for local installation or set in repo configuration
+https://dl.bintray.com/softway/rpm/7/s390x/p/
+
+https://dl.bintray.com/softway/rpm/7/x86_64/p/
 
 ## RPM installation
 ```markdown
