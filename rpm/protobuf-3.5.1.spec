@@ -31,7 +31,7 @@ Source4:        https://github.com/google/googletest/archive/release-1.7.0.tar.g
 
 BuildRequires:  autoconf
 BuildRequires:  automake
-BuildRequires:  emacs(bin)
+BuildRequires:  emacs
 BuildRequires:  emacs-el >= 24.1
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
@@ -343,7 +343,7 @@ install -p -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{emacs_startdir}
 %{_libdir}/libprotobuf.so
 %{_libdir}/libprotoc.so
 %{_libdir}/pkgconfig/protobuf.pc
-%doc examples/add_person.cc examples/addressbook.proto examples/list_people.cc examples/Makefile examples/README.md
+%doc examples/add_person.cc examples/addressbook.proto examples/list_people.cc examples/Makefile
 
 %files static
 %{_libdir}/libprotobuf.a
