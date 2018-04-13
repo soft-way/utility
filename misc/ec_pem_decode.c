@@ -451,7 +451,90 @@ void decode_key(unsigned char *base64, unsigned long len) {
     unsigned char ber[1024];
     unsigned int outlen;
     base64_decode(base64, len, ber, &outlen);
-    printf("Key binary(%d):\n", outlen);
+    printf("\nKey binary(%d):\n", outlen);
+    hexdump(ber, outlen);
+
+    unsigned char *ber_ptr;
+    unsigned char *key_ber;
+    unsigned long key_ber_len;
+    unsigned long field_len;
+    ber_ptr = ber;
+    int rc = ber_decode_SEQUENCE(ber_ptr, &key_ber, &key_ber_len, &field_len);
+    if (rc != 0) {
+        printf("Error: decode key ber\n");
+        exit(1);
+    } else {
+        printf("Key ber len: %d, field len: %d\n", key_ber_len, field_len);
+    }
+    
+    ber_ptr = key_ber;
+    unsigned char *version_ptr;
+    unsigned long version_len;
+    printf("Version(%d):\n", key_ber_len);
+    hexdump(key_ber, key_ber_len);
+    rc = ber_decode_INTEGER(ber_ptr, &version_ptr, &version_len, &field_len);
+    if (rc != 0) {
+        printf("Error: decode version\n");
+        exit(1);
+    } else {
+        printf("Version(%d): \n", version_len);
+        hexdump(version_ptr, version_len);
+        printf("Version field len: %d\n", field_len);
+    }
+    
+    ber_ptr += field_len;
+    unsigned char *objs_ber;
+    unsigned long objs_ber_len;
+    rc = ber_decode_SEQUENCE(ber_ptr, &objs_ber, &objs_ber_len, &field_len);
+    if (rc != 0) {
+        printf("Error: decode objs ber\n");
+        exit(1);
+    } 
+    printf("Objects: \n");
+    hexdump(objs_ber, objs_ber_len);
+    printf("Objs field len: %d\n", objs_ber_len);
+    
+    unsigned char *obj_ber;
+    unsigned long obj_ber_len;
+    ber_ptr = objs_ber;
+    rc = ber_decode_OBJ_IDENTIFIER(ber_ptr, &obj_ber, &obj_ber_len, &field_len);
+    if (rc != 0) {
+        printf("Error: decode obj1 ber\n");
+        exit(2);
+    }
+    printf("Obj1 field len: %d\n", field_len);
+    unsigned char obj_str[128];
+    str_OBJ_ID(obj_ber, obj_ber_len, obj_str);
+    printf("OBJ1 ID: %s\n\n", obj_str);
+    
+    ber_ptr += field_len;
+    rc = ber_decode_OBJ_IDENTIFIER(ber_ptr, &obj_ber, &obj_ber_len, &field_len);
+    if (rc != 0) {
+        printf("Error: decode obj2 ber\n");
+        exit(3);
+    }
+    printf("Obj2 field len: %d\n", field_len);
+    str_OBJ_ID(obj_ber, obj_ber_len, obj_str);
+    printf("OBJ2 ID: %s\n\n", obj_str);
+    
+    unsigned char *priv_key_ber;
+    unsigned long priv_key_len;
+    ber_ptr += field_len;
+    rc = ber_decode_OCTET_STRING(ber_ptr, &priv_key_ber, &priv_key_len, &field_len);
+    if (rc != 0) {
+        printf("Error: decode private key ber\n");
+        exit(4);
+    }
+    printf("Private key(%d):\n", priv_key_len);
+    hexdump(priv_key_ber, priv_key_len);
+}
+
+void decode_pubkey(unsigned char *base64, unsigned long len) {
+    printf("Key Base64: %s\n", base64);
+    unsigned char ber[1024];
+    unsigned int outlen;
+    base64_decode(base64, len, ber, &outlen);
+    printf("\nKey binary(%d):\n", outlen);
     hexdump(ber, outlen);
 
     unsigned char *ber_ptr;
@@ -563,6 +646,16 @@ int main(int argc, char *argv[]) {
             decode_key(base64, i);
         }
         
+        if ((strstr(buf, "BEGIN") != 0) && (strstr(buf, "PUBLIC KEY") != 0)) {
+            in_key_block = 1;
+            continue;
+        }
+        if ((strstr(buf, "END") != 0) && (strstr(buf, "PUBLIC KEY") != 0)) {
+            base64[i] = '\0';
+            printf("Public key:\n");
+            decode_pubkey(base64, i);
+        }
+
         if ((strstr(buf, "BEGIN") != 0) && (strstr(buf, "EC PARAMETERS") != 0)) {
             //printf("In EC Params block\n");
             in_ec_parameter_block = 1;
