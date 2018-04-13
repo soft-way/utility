@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/sh
 
 #
 # get bitcoin address from pub key hash hex file
@@ -31,29 +31,29 @@ while [[ $num > 0 ]]; do
             print $1 \
         } \
     } ' | tr -d ':' | xxd -p -r | xxd -p`
-    print ""
-    print "Generate bitcoin address $c:"
-    print "\tPrivate key(hex): $priv_key_hex"
-    print "\tPublic key(hex): $pub_key_hex"
+    echo ""
+    echo "Generate bitcoin address $c:"
+    echo "  Private key(hex)-${#priv_key_hex}: $priv_key_hex"
+    echo "  Public key(hex)-${#pub_key_hex}: $pub_key_hex"
 
     pub_key_256sum=`echo $pub_key_hex | xxd -p -r | sha256sum | awk ' { print $1 } '`
-    print "\tPublic key(sha256(p)): $pub_key_256sum"
+    echo "  Public key(sha256(p))-${#pub_key_256sum} : $pub_key_256sum"
     
     pub_key_rmd160_256sum=`echo  $pub_key_256sum | xxd -p -r | openssl rmd160 | awk ' { print $2 } '`
-    print "\tPublic key(rmd160(sha256(p))): $pub_key_rmd160_256sum"
+    echo "  Public key(rmd160(sha256(p)))-${#pub_key_rmd160_256sum}: $pub_key_rmd160_256sum"
     
     checksum_round1=`echo "00$pub_key_rmd160_256sum" | xxd -p -r | sha256sum | awk ' { print $1 } '`
     checksum_round2=`echo "$checksum_round1" | xxd -p -r | sha256sum | awk ' { print $1 } '`
-    print "\tPublic key(checksum): $checksum_round2"
+    echo "  Public key(checksum)-${#checksum_round2}: $checksum_round2"
 
     checksum_4_bytes=`echo $checksum_round2 | cut -c1-8`
-    print "\tPublic key(checksum prefix 4 bytes): $checksum_4_bytes"
+    echo "  Public key(checksum prefix 4 bytes)-${#checksum_4_bytes}: $checksum_4_bytes"
 
     addr_hex="00${pub_key_rmd160_256sum}${checksum_4_bytes}"
-    print "\tBitcoin address(Hex) $addr_hex"
+    echo "  Bitcoin address(Hex)-${#addr_hex}: $addr_hex"
     
     address=`echo $addr_hex | xxd -p -r | base58`
-    print "\tBitcoin address: $address"
+    echo "  Bitcoin address-${#address}: $address"
         
     rm $priv_key_file
     
