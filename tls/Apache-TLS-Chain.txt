@@ -32,5 +32,3 @@ openssl x509 -noout -text -in server.crt
 # 
 openssl verify -CAfile root_ca.crt -untrusted intermediate_ca.crt server.crt
 
-
-This certification authority is not allowed to issue certificates or cannot be used as an end-entity certificate.
