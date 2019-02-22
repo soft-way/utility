@@ -26,9 +26,8 @@ openssl req -new -key server.key -out server.csr -config <( cat server.csr.cnf )
 # 8. Sign the Server Certificate CSR using the Intermediate CA.
 openssl x509 -req -days 3650 -in server.csr -CA intermediate_ca.crt -extfile server_v3.ext -CAkey intermediate_ca.key -set_serial 0101 -out server.crt -sha256
 
-# Verify the certificate.
+# View the certificate.
 openssl x509 -noout -text -in server.crt
 
-# 
+# Verify the certificate.
 openssl verify -CAfile root_ca.crt -untrusted intermediate_ca.crt server.crt
-
