@@ -1,0 +1,19 @@
+[req]
+default_bits = 4096
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[v3_req]
+basicConstraints = CA:TRUE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment, cRLSign, keyCertSign
+
+[dn]
+C=CN
+ST=Beijing
+L=WangJing
+O=Nokia
+OU=DX
+emailAddress=ieccfadmin@nokia.com
+CN = IECCFAdmin
+
