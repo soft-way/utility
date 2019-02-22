@@ -1,0 +1,36 @@
+
+# https://smartnets.wordpress.com/2017/04/27/create-certificate-chain-and-sign-certificates-using-openssl/
+
+# 1. Generate Root Certificate key
+openssl genrsa -out root_ca.key 4096
+
+# 2. Generate Root certificate
+openssl req -new -x509 -sha256 -days 3650 -key root_ca.key -out root_ca.crt -config <(cat rootca.csr.cnf) -extensions v3_req
+
+# 3. Generate Intermediate CA certificate key
+openssl genrsa -out intermediate_ca.key 4096
+
+# 4. Generate Intermediate CA CSR
+openssl req -new -key intermediate_ca.key -out intermediate_ca.csr -config <(cat intermediate_ca.csr.cnf)
+
+# https://stackoverflow.com/questions/18233835/creating-an-x509-v3-user-certificate-by-signing-csr
+# 5. Sign the Intermediate CA by the Root CA.
+openssl x509 -req -days 3650 -in intermediate_ca.csr -extfile intermediate_ca_v3.ext -CA root_ca.crt -CAkey root_ca.key -CAcreateserial -out intermediate_ca.crt -sha256
+
+# 6. Generate Server certificate key
+openssl genrsa -out server.key 2048
+
+# 7. Generate Server certificate CSR.
+openssl req -new -key server.key -out server.csr -config <( cat server.csr.cnf )
+
+# 8. Sign the Server Certificate CSR using the Intermediate CA.
+openssl x509 -req -days 3650 -in server.csr -CA intermediate_ca.crt -extfile server_v3.ext -CAkey intermediate_ca.key -set_serial 0101 -out server.crt -sha256
+
+# Verify the certificate.
+openssl x509 -noout -text -in server.crt
+
+# 
+openssl verify -CAfile root_ca.crt -untrusted intermediate_ca.crt server.crt
+
+
+This certification authority is not allowed to issue certificates or cannot be used as an end-entity certificate.
