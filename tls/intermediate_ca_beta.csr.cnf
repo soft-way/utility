@@ -8,8 +8,8 @@ distinguished_name = dn
 C=CN
 ST=Beijing
 L=WangJing
-O=Nokia
+O=Nokia Shanghai Bell
 OU=DX
-emailAddress=IECCFIntermediateCA@nokia.com
-CN = IECCFIntermediateCA
+emailAddress=ieccf.intermediate.ca.beta@nokia-sbell.com
+CN = IECCF Intermediate CA Beta
 

@@ -1,5 +1,5 @@
 [req]
-default_bits = 2048
+default_bits = 4096
 prompt = no
 default_md = sha256
 distinguished_name = dn
@@ -10,5 +10,6 @@ ST=Beijing
 L=WangJing
 O=Nokia Shanghai Bell
 OU=DX
-emailAddress=ieccf.spa@nokia-sbell.com
-CN = IECCF SPA
+emailAddress=ieccf.intermediate.ca.gamma@nokia-sbell.com
+CN = IECCF Intermediate CA Gamma
+

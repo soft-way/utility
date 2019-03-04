@@ -12,8 +12,8 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment, cRLSign, keyCertSi
 C=CN
 ST=Beijing
 L=WangJing
-O=Nokia
+O=Nokia Shanghai Bell
 OU=DX
-emailAddress=ieccfadmin@nokia.com
-CN = IECCFAdmin
+emailAddress=ieccf.root.ca@nokia-sbell.com
+CN = IECCF Root CA
 
