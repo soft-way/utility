@@ -7,6 +7,7 @@ openssl genrsa -out root_ca.key 4096
 # 2. Generate Root certificate
 openssl req -new -x509 -sha256 -days 3650 -key root_ca.key -out root_ca.crt -config <(cat rootca.csr.cnf) -extensions v3_req
 
+# Create Intermediate CA Alpha certificate
 # 3. Generate Intermediate CA certificate key
 openssl genrsa -out intermediate_ca_alpha.key 4096
 
